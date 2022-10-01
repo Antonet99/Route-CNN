@@ -1,0 +1,72 @@
+Instance's Name: nome del file di input
+
+Initial Solution: array rappresentante l'insieme delle rotte
+
+OFIS: funzione obiettivo iniziale
+
+Moves: algoritmi destroy-repair utilizzati (station destroy, station repair, customer destroy, customer repair)
+
+OFFS: funzione obiettivo a seguito delle mosse applicate
+
+OF_Diff: differenza tra funzione obiettivo finale ed iniziale per l'iterazione corrente
+
+Exe_Time_d-r: tempo di elaborazione per applicare le mosse
+
+Avg_Battery_Status: media del consumo di batteria dei veicoli
+
+Avg_SoC: media degli stati della batteria con i quali i veicoli tornano in deposito
+
+Avg_Num_Charge: media del numero di cariche effettuate dai veicoli
+
+Avg_Vehicle_Capacity: media della capacità dei veicoli
+
+Avg_Customer_Demand: media delle domande dei customer in termini di package weight
+
+Num_Vehicles: numero di veicoli utilizzati
+
+Avg_Service_Time: media con la quale ogni customer viene servito
+
+Avg_Customer_TimeWindow: media delle differenze tra DueDate e ReadyTime dei customer
+
+Var_Customer_TimeWindow: varianza delle differenze tra DueDate e ReadyTime dei customer
+
+Avg_Customer_customer_min_dist: media delle distanze tra ciascun cliente e quello più vicino
+
+Var_Customer_customer_min_dist: varianza delle distanze tra ciascun cliente e quello più vicino
+
+Avg_Customer_station_min_dist: media delle distanze tra ciascun cliente e la stazione più vicina
+
+Var_Customer_station_min_dist: varianza delle distanze tra ciascun cliente e la stazione più vicina
+
+Avg_Customer_deposit_dist: media delle distanze tra ciascun cliente e il deposito
+
+Var_Customer_deposit_dist: varianza delle distanze tra ciascun cliente e il deposito
+
+CounterD_R: vettore composto dai 18 possibili algoritmi che si possono applicare (*), in cui si conta quante volte ciascun algoritmo ha permesso di migliorare il valore della soluzione precedente
+
+CounterD_Rlast: vettore composto dai 18 possibili algoritmi che si possono applicare (*), in cui si conta quante volte ciascun algoritmo è stato l'ultimo, in ciascun ciclo, ad aver migliorato la soluzione (quindi ad aver portato alla funzione obiettivo migliore)
+ 
+
+
+*
+GreedyRepairCustomer
+ProbabilisticGreedyRepairCustomer
+ProbabilisticGreedyConfidenceRepairCustomer
+ 
+GreedyDestroyCustomer
+WorstDistanceDestroyCustomer
+WorstTimeDestroyCustomer
+RandomRouteDestroyCustomer
+ZoneDestroyCustomer
+DemandBasedDestroyCustomer
+TimeBasedDestroyCustomer
+ProximityBasedDestroyCustomer
+ShawDestroyCustomer
+GreedyRouteRemoval
+ProbabilisticWorstRemovalCustomer
+ 
+DeterministicBestRepairStation
+ProbabilisticBestRepairStation
+ 
+RandomDestroyStation
+LongestWaitingTimeDestroyStation
