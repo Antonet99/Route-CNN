@@ -36,31 +36,22 @@ for row in init_sol:
 places = np.array(places)
 distinct_places = np.unique(places)
 
-
-# creo un dizionario  
 d = {}
 
 for index, elem in enumerate(sol):
         zeros = np.zeros([len(distinct_places), len(distinct_places)])
         d[index] = pd.DataFrame(zeros, index=distinct_places, columns=distinct_places)
         
-for index, stringa in enumerate(soll):
-    
-    # si prende la stringa i-esima e la si mette in una variabile temporanea quindi temp diventerà percorso 1, percorso 2, ecc
-    
+for index, stringa in enumerate(sol):
+ 
     temp = stringa
-    print(temp)
-    
-    # si splitta la variabile temp secondo il carattere spazio, inserendola in una variabile chiamata split (che sarà una lista), 
-    # in modo da avere ad esempio split[0] = D0, split[1] = C21, ecc 
     
     split = temp.split(" ")                         
-    
-    # si prendono i singoli luoghi che servono a costruire la matrice di ogni percorso all'interno del vettore precedente,
-    # quindi avrò unique = ["C21", "C26", "D0"] (ordinata con sort)
-    
     split = np.array(split)
     
     for i in range(len(split)-1):
             d[index].loc[split[i], split[i+1]] = 1
-    print(d)
+    
+    
+for i in range(len(dict)):
+    dict[i] = dict[i].to_numpy()
