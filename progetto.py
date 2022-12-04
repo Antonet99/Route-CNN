@@ -19,6 +19,7 @@ to_remove = "null"
 moves = list(filter(lambda x: x != to_remove, moves))
 
 moves=list(set(moves))
+print("Lista delle", len(moves), "possibili e diverse mosse: \n", moves)
 
 data["Moves"] = data["Moves"].str.replace("[","")
 data["Moves"] = data["Moves"].str.replace("]","")
@@ -97,4 +98,4 @@ for matrix in dict.values():
         result = np.add(result, matrix)
 
 # Stampo il risultato
-print(result)
+print("Ho salvato la matrice risultante rispetto alla mossa scelta nel file ", user_input)
