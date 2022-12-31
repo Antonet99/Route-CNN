@@ -3,7 +3,9 @@ import numpy as np
 
 path = "DB-Output_original.csv"
 data = pd.read_csv(path)
-data = data.loc[:, ['Initial Solution', 'Moves']]
+
+data = data.loc[:, ['Initial Solution', 'Moves', 'OFIS', 'OFFS', 'OF_Diff']]
+data = data[data.OF_Diff != 0]
 
 mv = data["Moves"]
 moves = []
@@ -25,8 +27,8 @@ data["Moves"] = data["Moves"].str.replace("[","")
 data["Moves"] = data["Moves"].str.replace("]","")
 data["Moves"] = data["Moves"].str.replace("'","")
 
-user_input = input("Inserisci una stringa: ")
-data = data.loc[data['Moves'].str.contains(user_input)]
+#user_input = input("Inserisci una stringa: ")
+data = data.loc[data['Moves'].str.contains("GreedyDestroyCustomer")]
 
 init_sol = data['Initial Solution']
 
@@ -41,7 +43,11 @@ for i in range(len(sol)):
     sol[i] = sol[i].replace("'","")
     sol[i] = sol[i].replace(",","")
     sol[i] = sol[i].replace("[","")
-    
+        
+for i in range(len(sol)):
+    sol[i] = sol[i].split(']')
+
+
 data["Initial Solution"] = data["Initial Solution"].str.replace("[","")
 data["Initial Solution"] = data["Initial Solution"].str.replace("]","")
 data["Initial Solution"] = data["Initial Solution"].str.replace(",","")
@@ -57,45 +63,27 @@ for row in init_sol:
 places = np.array(places)
 distinct_places = np.unique(places)
 
-dict = {}
-for index, elem in enumerate(sol):
+# Lista vuota
+lista_principale = [] #contiene 906 elementi
+lista_dataframe = []
+
+for index_ext, value_ext in enumerate(sol):
+    for n in value_ext:
+
+        #print(type(value_ext, value_int))
+
         zeros = np.zeros([len(distinct_places), len(distinct_places)])
-        dict[index] = pd.DataFrame(zeros, index=distinct_places, columns=distinct_places)
+        df = pd.DataFrame(zeros, index=distinct_places, columns=distinct_places)
 
-for index, stringa in enumerate(sol):
-    
-    temp = stringa
-    
-    split = temp.split(" ")                         
-    split = np.array(split)
-    
-    for i in range(len(split)-1):
-            dict[index].loc[split[i], split[i+1]] = 1
+        temp_string = n
 
-# inizializzo il risultato come il primo dataframe del dizionario
-df_sum = dict[0]
+        split = temp_string.split(" ")
+        split = np.array(split)
 
-# itero su tutti gli altri dataframe del dizionario
-for i in range(1, len(dict)):
-    # sommo il dataframe corrente al risultato
-    df_sum = df_sum.add(dict[i])
-    
-df_sum.to_csv(user_input)
+        for i in range(len(split)-1):
 
-for i in range(len(dict)):
-    dict[i] = dict[i].to_numpy()
+            df.loc[split[i], split[i+1]] = 1
 
-# Inizializzo una variabile per memorizzare il risultato
-result = None
+        lista_dataframe.append(df)
 
-# Creo un ciclo che iteri sulla lista di matrici
-for matrix in dict.values():
-    # Se è il primo ciclo, il risultato è uguale alla prima matrice
-    if result is None:
-        result = matrix
-    # Altrimenti, sommo il risultato con la matrice corrente
-    else:
-        result = np.add(result, matrix)
-
-# Stampo il risultato
-print("Ho salvato la matrice risultante rispetto alla mossa scelta nel file ", user_input)
+lista_principale.append(lista_dataframe)
