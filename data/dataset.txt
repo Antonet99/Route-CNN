@@ -10,6 +10,10 @@ OFFS: funzione obiettivo a seguito delle mosse applicate
 
 OF_Diff: differenza tra funzione obiettivo finale ed iniziale per l'iterazione corrente
 
+
+
+
+
 Exe_Time_d-r: tempo di elaborazione per applicare le mosse
 
 Avg_Battery_Status: media del consumo di batteria dei veicoli
