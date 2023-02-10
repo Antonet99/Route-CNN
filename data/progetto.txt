@@ -1,0 +1,33 @@
+Starting from the beginning, I have a dataframe populated with multiple columns/rows. The data within this dataframe contains a simulation of a route traveled by a courier for deliveries with a van.
+
+The places that the courier visits are indicated by a combination of letters + numbers: for example, the warehouse is always indicated with D0, a customer as C24 (or C78/C45, etc...). In the "Initial Solution" column we have multiple routes taken by a courier.
+
+Each route always starts from D0, passes through different customers, and always returns to D0 (e.g., D0->C24->C56->D0).
+
+Having taken a route, moves are applied (which I will describe later) that are used to make the courier change the route. These moves are defined and there are 16 of them, of different types.
+
+As you can see in the notebook, I have isolated all the places contained in all the routes, which are 120.
+Through this isolation, I can construct a matrix that have these 120 places as row and column indices, and represent each route as an adjacency matrix (so 120x120): if a route involves the move D0->C24, then in the adjacency matrix I will have 1 at column D0 and row C24.
+
+As I said before, there are multiple paths in the "Initial Solution" column.
+What I need to do (and what I have already done, as you can see in the notebook) is to have as an end result an adjacency matrix for each row in the dataframe (thus summing the individual matrices derived from the individual paths in each row in the "Initial Solution" column).
+
+If at the beginning, where the move to be applied is asked as input, a dataframe with 600 rows is constructed, then at the end I will have 600 adjacency matrices.
+
+Once I arrive at having a list containing the 600 matrices (for example), I need to construct a CNN that, having chosen a move from the 16 available, tells me whether the move chosen and applied to a path is good or not.
+
+The classification is based on the value of the OF_Diff column: this value is the difference between the value of the initial objective function (OFIS) before applying a move, and the value of the final objective function (OFFS).
+
+is a minimum function, so the higher the value of OF_Diff, the better the chosen move will be.
+
+
+the "label" column was added later by me: it is used to tell, based on various ranges, whether the applied move leads to negative (0), zero (1), little (2), medium (3), or much (4) improvement
+
+for example, if you enter "RandomDestroyStation" as input in cell 8, you will have a dataframe with 477 rows. Going forward in execution, once you get to cell 11, the resulting list will have 477 matrices in it
+
+
+
+
+
+
+if it can help you, you can think at the classification model applied on the mnist dataset: you have a dataset of numbers, some labeled and some not. You train the cnn with the one-hot encode model
